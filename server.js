@@ -42,11 +42,12 @@ app.use(errorHandler)
 
 
 mongoose.connection.once('open', () => {
+  console.log("🚀 ~ mongoose.connection.once ~ process.env.NODE_ENV:", process.env.NODE_ENV)
   console.log('Connected to MongoDB')
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}.`));
 })
 
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on('error', err => {
   console.log('Mongoose connection error:', err)
   logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
 })
