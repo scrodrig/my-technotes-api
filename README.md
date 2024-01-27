@@ -27,8 +27,15 @@
 
 ## Usage
 
-- Access the API at `http://localhost:3000`
-- Use the following endpoints:
+- Access the API at `http://localhost:3500`
+
+- Use the following endpoints for `users`:
+  - `GET /users` - Get all users
+  - `POST /users` - Create a new user
+  - `PATCH /users/` - Update a user
+  - `DELETE /users/` - Delete a user
+
+- Use the following endpoints for `notes`:
   - `GET /notes` - Get all notes
   - `POST /notes` - Create a new note
   - `PATCH /notes/` - Update a note
