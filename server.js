@@ -3,7 +3,7 @@ const app = expresss();
 const path = require('path');
 const PORT = process.env.PORT || 3500;
 
-app.use('/', expresss.static(path.join(__dirname, '/public')))
+app.use('/', expresss.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root.js'))
 
