@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 // @access  Private
 const getAllUsers = asyncHadler(async (req, res) => {
   const users = await User.find().select('-password').lean()
-  if (!users) {
+  if (!users?.length) {
     return res.status(404).json({ message: 'No users found' })
   }
   res.json(users)
@@ -48,8 +48,7 @@ const createNewUser = asyncHadler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      message: `New user ${username} created`,
-      user
+      message: `New user ${username} created`
     })
   } else {
     res.status(500).json({ message: 'Invalid user data received' })
@@ -93,8 +92,7 @@ const updateUser = asyncHadler(async (req, res) => {
   //? const updatedUser = await User.save(user)
 
   res.json({
-    message: `User ${updatedUser.username} updated`,
-    user: updatedUser
+    message: `User ${updatedUser.username} updated`
   })
 })
 
