@@ -74,7 +74,7 @@ const updateUser = asyncHadler(async (req, res) => {
   //Check for duplicates
   const duplicate = await User.findOne({ username }).lean().exec()
   //Allow updates to the original user
-  if (duplicate && duplicate?.id.toString() !== id) {
+  if (duplicate && duplicate?._id.toString() !== id) {
     return res.status(409).json({ message: 'Duplicate user name' })
   }
 
