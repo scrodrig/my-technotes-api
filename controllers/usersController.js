@@ -105,8 +105,8 @@ const deleteUser = asyncHadler(async (req, res) => {
     return res.status(400).json({ message: 'User id is required' })
   }
 
-  const notes = await Note.findOne({ user: id }).lean().exec()
-  if (notes?.length) {
+  const note = await Note.findOne({ user: id }).lean().exec()
+  if (note) {
     return res.status(409).json({ message: 'User has notes, delete notes first' })
   }
 
