@@ -25,8 +25,9 @@ app.use(cookieParser())
 
 app.use('/', expresss.static(path.join(__dirname, 'public')))
 
-app.use('/', require('./routes/root'))
 
+app.use('/', require('./routes/root'))
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/notes', require('./routes/noteRouter'))
 
