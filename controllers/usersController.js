@@ -1,23 +1,22 @@
 const User = require('../models/User');
 const Note = require('../models/Note');
-const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 
 // @desc    Get all users
 // @route   GET /users
 // @access  Private
-const getAllUsers = asyncHandler(async (req, res) => {
+const getAllUsers = async (req, res) => {
     const users = await User.find().select('-password').lean();
     if (!users?.length) {
         return res.status(404).json({ message: 'No users found' });
     }
     res.json(users);
-});
+};
 
 // @desc    Create New User
 // @route   POST /users
 // @access  Private
-const createNewUser = asyncHandler(async (req, res) => {
+const createNewUser = async (req, res) => {
     const { username, password, roles } = req.body;
 
     //Confirm data
@@ -54,12 +53,12 @@ const createNewUser = asyncHandler(async (req, res) => {
     } else {
         res.status(500).json({ message: 'Invalid user data received' });
     }
-});
+};
 
 // @desc    Update New User
 // @route   PATCH /users
 // @access  Private
-const updateUser = asyncHandler(async (req, res) => {
+const updateUser = async (req, res) => {
     const { id, username, roles, active, password } = req.body;
     //Confirm data
     if (
@@ -104,12 +103,12 @@ const updateUser = asyncHandler(async (req, res) => {
     res.json({
         message: `User ${updatedUser.username} updated`,
     });
-});
+};
 
 // @desc    Delete a User
 // @route   DELETE /users
 // @access  Private
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteUser = async (req, res) => {
     const { id } = req.body;
 
     // Confirm data
@@ -136,7 +135,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     const reply = `Username ${user?.username} with ID ${user?._id} deleted`;
 
     res.json(reply);
-});
+};
 
 module.exports = {
     getAllUsers,
