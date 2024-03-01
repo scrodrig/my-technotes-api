@@ -1,5 +1,10 @@
-  const allowedOrigins = [
-    'https://my-technotes-webapp.onrender.com'
-  ]
+const developmentOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://my-technotes-webapp.onrender.com',
+];
 
-  module.exports = allowedOrigins
+const productionOrigins = ['https://my-technotes-webapp.onrender.com'];
+const allowedOrigins = process.env.NODE_ENV === 'development' ? developmentOrigins : productionOrigins
+
+module.exports = allowedOrigins;
