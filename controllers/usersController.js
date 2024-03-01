@@ -40,8 +40,8 @@ const createNewUser = async (req, res) => {
     //Create new user
     const userObject =
         !Array.isArray(roles) || !roles.length
-            ? { username, password: hashedPwd }
-            : { username, password: hashedPwd, roles };
+            ? { username, password: hashedPassword }
+            : { username, password: hashedPassword, roles };
 
     //Store user
     const user = await User.create(userObject);
