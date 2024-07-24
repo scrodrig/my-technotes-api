@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -5,7 +7,7 @@ const jwt = require('jsonwebtoken');
 // @desc Login
 // @route POST /auth
 // @access Public
-const login = async (req, res) => {
+const login = async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -43,7 +45,7 @@ const login = async (req, res) => {
     res.cookie('jwt', refreshToken, {
         httpOnly: true, //accessible only by web server
         secure: true, //https
-        sameSite: 'None', //cross-site cookie
+        sameSite: 'none' || 'None', //'None'//cross-site cookie
         maxAge: 7 * 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
     });
 
@@ -54,7 +56,7 @@ const login = async (req, res) => {
 // @desc Refresh
 // @route GET /auth/refresh
 // @access Public - because access token has expired
-const refresh = (req, res) => {
+const refresh = (req: Request, res: Response) => {
     const cookies = req.cookies;
 
     if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' });
@@ -64,7 +66,7 @@ const refresh = (req, res) => {
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-        async (err, decoded) => {
+        async (err: Error, decoded: { username: string }) => {
             if (err) return res.status(403).json({ message: 'Forbidden' });
 
             const foundUser = await User.findOne({ username: decoded.username }).exec();
@@ -90,10 +92,10 @@ const refresh = (req, res) => {
 // @desc Logout
 // @route POST /auth/logout
 // @access Public - just to clear cookie if exists
-const logout = (req, res) => {
+const logout = (req: Request, res: Response) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); //No content
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none' || 'None', secure: true });
     res.json({ message: 'Cookie cleared' });
 };
 

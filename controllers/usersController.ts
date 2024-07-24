@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 const User = require('../models/User');
 const Note = require('../models/Note');
 const bcrypt = require('bcrypt');
@@ -5,7 +7,7 @@ const bcrypt = require('bcrypt');
 // @desc    Get all users
 // @route   GET /users
 // @access  Private
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req: Request, res: Response) => {
     const users = await User.find().select('-password').lean();
     if (!users?.length) {
         return res.status(404).json({ message: 'No users found' });
@@ -16,7 +18,7 @@ const getAllUsers = async (req, res) => {
 // @desc    Create New User
 // @route   POST /users
 // @access  Private
-const createNewUser = async (req, res) => {
+const createNewUser = async (req: Request, res: Response) => {
     const { username, password, roles } = req.body;
 
     //Confirm data
@@ -58,7 +60,7 @@ const createNewUser = async (req, res) => {
 // @desc    Update New User
 // @route   PATCH /users
 // @access  Private
-const updateUser = async (req, res) => {
+const updateUser = async (req: Request, res: Response) => {
     const { id, username, roles, active, password } = req.body;
     //Confirm data
     if (
@@ -108,7 +110,7 @@ const updateUser = async (req, res) => {
 // @desc    Delete a User
 // @route   DELETE /users
 // @access  Private
-const deleteUser = async (req, res) => {
+const deleteUser = async (req: Request, res: Response) => {
     const { id } = req.body;
 
     // Confirm data

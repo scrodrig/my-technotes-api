@@ -5,6 +5,6 @@ const developmentOrigins = [
 ];
 
 const productionOrigins = ['https://my-technotes-webapp.onrender.com'];
-const allowedOrigins = process.env.NODE_ENV === 'development' ? developmentOrigins : productionOrigins
+const allowedOriginsNoBloock = process.env.NODE_ENV === 'development' ? developmentOrigins : productionOrigins;
 
-module.exports = allowedOrigins;
+module.exports = allowedOriginsNoBloock;

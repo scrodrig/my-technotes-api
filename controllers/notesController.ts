@@ -1,3 +1,5 @@
+import { Request, Response } from "express"
+
 const Note = require('../models/Note')
 const User = require('../models/User')
 
@@ -5,13 +7,13 @@ const User = require('../models/User')
 // @route   GET /notes
 // @access  Private
 
-const getAllNotes = async (req, res) => {
+const getAllNotes = async (req: Request, res: Response) => {
     const notes = await Note.find().lean()
     if (!notes?.length) {
         return res.status(404).json({ message: 'No notes found' })
     }
 
-    const notesWithUser = await Promise.all(notes.map(async (note) => {
+    const notesWithUser = await Promise.all(notes.map(async (note: { user: any }) => {
         const user = await User.findById(note?.user).lean().exec()
         //! If user is not found, return 'unknown' as username
         return { ...note, username: user?.username ?? 'unknown' }
@@ -23,7 +25,7 @@ const getAllNotes = async (req, res) => {
 // @desc    Create New Note
 // @route   POST /notes
 // @access  Private
-const createNewNote = async (req, res) => {
+const createNewNote = async (req: Request, res: Response) => {
     const { user, title, text } = req.body
 
     //Confirm data
@@ -53,7 +55,7 @@ const createNewNote = async (req, res) => {
 // @desc    Update Note
 // @route   PATCH /notes
 // @access  Private
-const updateNote = async (req, res) => {
+const updateNote = async (req: Request, res: Response) => {
     const { id, completed, user, title, text } = req.body
 
     //Confirm data
@@ -92,7 +94,7 @@ const updateNote = async (req, res) => {
 // @desc    Delete Note
 // @route   DELETE /notes
 // @access  Private
-const deleteNote = async (req, res) => {
+const deleteNote = async (req: Request, res: Response) => {
     const { id } = req.body
 
     //Confirm data

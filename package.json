@@ -2,10 +2,12 @@
   "name": "my-technotes-api",
   "version": "1.0.0",
   "description": "MERN Backend for my-technotes project as a showcase",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "build": "npx tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon server.ts",
+    "start:dev": "npx ts-node server.ts"
   },
   "keywords": [
     "technotes"
@@ -27,6 +29,10 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.12",
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.0.3",
+    "typescript": "^5.5.4"
   }
 }
