@@ -1,6 +1,8 @@
-const { logEvents } = require('./logger.js');
+import { NextFunction, Request, Response } from 'express';
 
-const errorHandler = (err, req, res, next) => {
+const { logEvents } = require('./logger');
+
+const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     logEvents(
         `${err.name}: ${err.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
         'errorLog.log',
